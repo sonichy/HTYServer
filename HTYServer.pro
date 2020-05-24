@@ -15,14 +15,10 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp\
-        qserver.cpp \
-        qclientthread.cpp
+        mainwindow.cpp
 
 HEADERS += \
-        mainwindow.h\
-      qserver.h \
-      qclientthread.h
+        mainwindow.h
 
 
 FORMS += \
