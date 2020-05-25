@@ -8,5 +8,5 @@ A pure Qt(QTcpSocket) file server.
 * [Request & Response](https://github.com/eXetrum/QtFileServer.git)
 * [Socket write file](https://blog.csdn.net/A18373279153/article/details/80364320)
 ### Problem
-* Can not serve local
+* Chrome can not open, Firefox can open
 * Socket write big file cause large memory usage
