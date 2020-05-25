@@ -49,8 +49,8 @@ MainWindow::MainWindow(QWidget *parent) :
             if (QDir(path).exists()) {
                 if (tcpServer->listen(QHostAddress::Any, port)) {
                     ui->textBrowser->clear();
-                    ui->textBrowser->append(path);
-                    ui->textBrowser->append(IP + ":" + QString::number(port));
+                    ui->textBrowser->append(QDateTime::currentDateTime().toString("yyyy年MM月dd日 hh:mm:ss") + " " + path);
+                    ui->textBrowser->append(QDateTime::currentDateTime().toString("yyyy年MM月dd日 hh:mm:ss") + " " + IP + ":" + QString::number(port));
                     ui->pushButton_start->setText("Stop");
                     ui->lineEdit_port->setEnabled(false);
                     ui->lineEdit_root_dir->setEnabled(false);
@@ -85,13 +85,13 @@ MainWindow::~MainWindow()
 void MainWindow::newConnect()
 {
     tcpSocket = tcpServer->nextPendingConnection();
-    ui->textBrowser->append("newConnect: " + tcpSocket->peerAddress().toString().replace("::ffff:",""));
+    ui->textBrowser->append(QDateTime::currentDateTime().toString("yyyy年MM月dd日 hh:mm:ss") + " " + "newConnect: " + tcpSocket->peerAddress().toString().replace("::ffff:",""));
     connect(tcpSocket, SIGNAL(readyRead()), this, SLOT(readyRead()));
     connect(tcpSocket, QOverload<QAbstractSocket::SocketError>::of(&QAbstractSocket::error), [=](QAbstractSocket::SocketError socketError){
         qDebug() << socketError;
         QMetaEnum metaEnum = QMetaEnum::fromType<QAbstractSocket::SocketError>();
         QString errorString = metaEnum.valueToKey(socketError);
-        ui->textBrowser->append(errorString);
+        ui->textBrowser->append(QDateTime::currentDateTime().toString("yyyy年MM月dd日 hh:mm:ss") + " " + errorString);
     });
 }
 
@@ -174,7 +174,7 @@ void MainWindow::ProcessData(QByteArray receivedData)
 void MainWindow::ListSubjects(QString path)
 {
     path = QByteArray::fromPercentEncoding(path.toUtf8());  //%XX反转义
-    ui->textBrowser->append(path);
+    ui->textBrowser->append(QDateTime::currentDateTime().toString("yyyy年MM月dd日 hh:mm:ss") + " " + path);
     QString path_abs = ui->lineEdit_root_dir->text() + path;
     QString pathr;
     if(path == "/")
